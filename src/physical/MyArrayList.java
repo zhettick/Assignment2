@@ -20,9 +20,9 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     private void increaseBuffer() {
-        capacity = (int) (1.5*capacity);
+        capacity = (int) (1.5 * capacity);
         Object[] array2 = new Object[capacity];
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             array2[i] = array[i];
         }
         array = array2;
@@ -30,7 +30,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void set(int index, T item) {
-        if(index<0 || size<index){
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
         array[index] = item;
@@ -38,34 +38,34 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(int index, T item) {
-        if(index<0 || size<index){
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
         if (size == capacity) {
             increaseBuffer();
         }
-        for(int i=size; i >index; i--){
-            array[i]=array[i-1];
+        for (int i = size; i > index; i--) {
+            array[i] = array[i - 1];
         }
         size++;
-        array[index]= item;
+        array[index] = item;
     }
 
     @Override
     public void addFirst(T item) {
-        if (size==capacity) {
+        if (size == capacity) {
             increaseBuffer();
         }
-        for (int i =size; i>0 ; i--) {
-            array[i]=array[i-1];
+        for (int i = size; i > 0; i--) {
+            array[i] = array[i - 1];
         }
         size++;
-        array[0]=item;
+        array[0] = item;
     }
 
     @Override
     public void addLast(T item) {
-        if (size==capacity) {
+        if (size == capacity) {
             increaseBuffer();
         }
         array[size++] = item;
@@ -73,6 +73,9 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
+        }
         return (T) array[index];
     }
 
@@ -83,31 +86,40 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T getLast() {
-        return (T) array[size-1];
+        return (T) array[size - 1];
     }
 
     @Override
     public void remove(int index) {
-        if(index<0 || index>=size){
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
-        for (int i=index; i<size; i++){
-            array[i]= array[i+1];
+        if (size == 0) {
+            throw new IllegalStateException("List is empty");
+        }
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
         }
         size--;
     }
 
     @Override
     public void removeFirst() {
-        for (int i=0; i < size; i++) {
-            array[i]=array[i+1];
+        if (size == 0) {
+            throw new IllegalStateException("List is empty");
+        }
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i + 1];
         }
         size--;
     }
 
     @Override
     public void removeLast() {
-        size--;
+        if (size == 0) {
+            throw new IllegalStateException("List is empty");
+        }
+        array[size--] = null;
     }
 
     @Override
@@ -127,7 +139,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public int indexOf(Object object) {
-        for (int i = size - 1; i >= 0; i--) {
+        for (int i = 0; i < size; i++) {
             if (array[i].equals(object)) {
                 return i;
             }
@@ -137,8 +149,8 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public int lastIndexOf(Object object) {
-        for(int i= size; i>0;i--){
-            if (array[i].equals(object)){
+        for (int i = size - 1; i >= 0; i--) {
+            if (array[i].equals(object)) {
                 return i;
             }
         }
@@ -147,8 +159,8 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public boolean exists(Object object) {
-        for(int i= 0; i<size;i++){
-            if (array[i].equals(object)){
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(object)) {
                 return true;
             }
         }
@@ -158,11 +170,12 @@ public class MyArrayList<T> implements MyList<T> {
     @Override
     public Object[] toArray() {
         Object[] result = new Object[size];
-        for (int i=0; i<size;i++){
-            result[i]=array[i];
+        for (int i = 0; i < size; i++) {
+            result[i] = array[i];
         }
         return result;
     }
+
     @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
@@ -180,15 +193,18 @@ public class MyArrayList<T> implements MyList<T> {
     public Iterator<T> iterator() {
         return new MyIterator();
     }
-    private class MyIterator implements Iterator<T>{
-        int cursor=0;
+
+    private class MyIterator implements Iterator<T> {
+        int cursor = 0;
+
         @Override
-        public boolean hasNext(){
-            return cursor !=size;
+        public boolean hasNext() {
+            return cursor != size;
         }
+
         @Override
-        public T next(){
-            T nextItem =get(cursor);
+        public T next() {
+            T nextItem = get(cursor);
             cursor++;
             return nextItem;
         }
