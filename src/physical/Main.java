@@ -4,11 +4,11 @@ public class Main {
     public static void main(String[] args) {
         MyArrayList<Integer> arrayList = new MyArrayList<>();
 
-        arrayList.add(10);
-        arrayList.add(30);
         arrayList.add(50);
+        arrayList.add(30);
+        arrayList.add(1);
         arrayList.addFirst(5);
-        arrayList.addLast(20);
+        arrayList.addLast(25);
         System.out.println("List:");
         Object[] arr = arrayList.toArray();
         for (Object obj : arr) {
@@ -37,10 +37,9 @@ public class Main {
         for (Object obj : arr2) {
             System.out.println(obj);
         }
-        System.out.println("Index of 20: " + arrayList.indexOf(20));
-        System.out.println("Last index of 20: " + arrayList.lastIndexOf(20));
-        System.out.println("Exists 30: " + arrayList.exists(30));
-        System.out.println("Exists 100: " + arrayList.exists(100));
+        System.out.println("Index of 10: " + arrayList.indexOf(10));
+        System.out.println("Last index of 40: " + arrayList.lastIndexOf(40));
+        System.out.println("Exists 50: " + arrayList.exists(50));
         arrayList.clear();
         System.out.println("Size after clear: " + arrayList.size());
     }
