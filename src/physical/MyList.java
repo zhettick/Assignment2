@@ -1,6 +1,7 @@
 package physical;
 
 public interface MyList<T> extends Iterable<T> {
+    //all methods we must implement
     void add(T item);
     void set(int index, T item);
     void add(int index, T item);

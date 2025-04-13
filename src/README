@@ -1,0 +1,66 @@
+Purpose:
+This project is for defining which physical data structure is better for which logical data structure.
+
+Short Summary:
+MyArrayList uses an array to store elements, providing fast access by index.
+MyLinkedList is implemented as a doubly linked list where each node holds references to the next and previous elements.
+MyStack uses MyArrayList to efficiently manage elements in LIFO order, benefiting from fast access to the end.
+MyQueue uses MyLinkedList for efficient addition and removal of elements at the head and tail, which suits the FIFO structure.
+MyMinHeap uses MyArrayList for efficient storage and easier implementation of heap operations.
+
+Structure:
+
+1. MyList
+add(T item) — adds an item to the end of the collection.
+set(int index, T item) — replaces the item at the specified index.
+add(int index, T item) — adds an item at the specified index.
+addFirst(T item) — adds an item at the 0 index.
+addLast(T item) — adds an item at the last index.
+get(int index) — returns the item at the specified index.
+getFirst() — returns the first item.
+getLast() — returns the last item.
+remove(int index) — removes the item at the specified index.
+removeFirst() — removes the first item.
+removeLast() — removes the last item.
+sort() — sorts the elements using bubble sort.
+indexOf(Object object) — returns the index of the first occurrence of an element.
+lastIndexOf(Object object) — returns the index of the last occurrence of an element.
+exists(Object object) — checks if the element exists in the collection.
+toArray() — converts the collection to an array.
+clear() — clears the collection.
+size() — returns the number of elements in the collection.
+
+2. MyArrayList
+Implements MyList
+
+3. MyLinkedList
+Implements MyList
+
+4. MyStack
+empty() – returns whether the stack is empty.
+int size() – returns the size of the stack.
+peek() – returns a reference to the topmost element of the stack.
+push(T) – adds the element at the top of the stack.
+pop() – retrieves and deletes the topmost element of the stack.
+
+
+5. MyQueue
+empty() – returns whether the queue is empty.
+size()– returns the size of the queue.
+peek()– returns a reference to the front element of the queue.
+enqueue(T) – adds the element at the end of the queue.
+dequeue() – retrieves and deletes the front element of the queue.
+
+6. MyMinHeap
+empty() – Returns whether the heap is empty.
+size() – Returns the size of the heap.
+getMax() or getMin() – Returns a reference to the root element of the heap.
+extractMax() or extractMin() – Retrieves and deletes the root element of the heap.
+insert(T) – Adds the element to the heap.
+Private:
+heapify(index) – can perform heapify actions starting from position ‘index’.
+traverseUp(index) – can perform traverseUp actions starting from position ‘index’.
+leftChildOf(index) – returns the index of the left child item.
+rightChildOf(index) – returns the index of the right child item.
+parentOf(index) - returns the index of the parent item.
+swap(index1, index2) – exchanges two elements by their positions.

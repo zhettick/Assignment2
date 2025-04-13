@@ -8,11 +8,13 @@ public class MyArrayList<T> implements MyList<T> {
     private int capacity = 15;
 
     public MyArrayList() {
+        //no-arg constructor to initialize array list
         array = new Object[capacity];
     }
 
     @Override
     public void add(T item) {
+        //first of all, checking capacity, if we have more items, than capacity we have to increase it with private method, otherwise just add an element to the end; increase size
         if (size == capacity) {
             increaseBuffer();
         }
@@ -20,6 +22,7 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     private void increaseBuffer() {
+        //we change the value of capacity to bigger and create another array list with this capacity; all elements from first array list move to second; in the end replace the old array list
         capacity = (int) (1.5 * capacity);
         Object[] array2 = new Object[capacity];
         for (int i = 0; i < size; i++) {
@@ -30,6 +33,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void set(int index, T item) {
+        //first of all, checking if provided index is between 0 and size-1; after that just put our item on index we need
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
@@ -38,6 +42,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void add(int index, T item) {
+        //first of all, checking if provided index is between 0 and size; then move all elements after needed index to the right; put element on provided index; increase size
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
@@ -53,6 +58,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void addFirst(T item) {
+        //first of all, checking capacity, if we have more items, than capacity we have to increase it with private method, otherwise move all elements to the right; put item on 0 index; increase size
         if (size == capacity) {
             increaseBuffer();
         }
@@ -65,6 +71,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void addLast(T item) {
+        //first of all, checking capacity, if we have more items, than capacity we have to increase it with private method, otherwise just add an element to the end; increase size
         if (size == capacity) {
             increaseBuffer();
         }
@@ -73,6 +80,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T get(int index) {
+        //first of all, checking if provided index is between 0 and size; then just return element on needed index
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
@@ -81,16 +89,25 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T getFirst() {
+        //first of all, checking for the size, if size is 0, we can not return anything; if everything is okay, returning first element
+        if (size == 0) {
+            throw new IllegalStateException("List is empty");
+        }
         return (T) array[0];
     }
 
     @Override
     public T getLast() {
+        //first of all, checking for the size, if size is 0, we can not return anything; if everything is okay, returning last element
+        if (size == 0) {
+            throw new IllegalStateException("List is empty");
+        }
         return (T) array[size - 1];
     }
 
     @Override
     public void remove(int index) {
+        //first of all, checking if provided index is between 0 and size; then checking for the size, if size is 0, we can not remove anything; if everything is okay, move all elements after index to the left; decrease size
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
@@ -105,6 +122,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void removeFirst() {
+        //first of all, checking for the size, if size is 0, we can not remove anything; if everything is okay, move all elements to the left; decrease size
         if (size == 0) {
             throw new IllegalStateException("List is empty");
         }
@@ -116,14 +134,16 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void removeLast() {
+        //first of all, checking for the size, if size is 0, we can not remove anything; if everything is okay, make last element null; decrease size
         if (size == 0) {
             throw new IllegalStateException("List is empty");
         }
-        array[size--] = null;
+        array[--size] = null;
     }
 
     @Override
     public void sort() {
+        //bubble sort with Comparable<T>
         for (int i = 0; i < size - 1; i++) {
             for (int j = 0; j < size - 1 - i; j++) {
                 Comparable<T> a = (Comparable<T>) array[j];
@@ -139,6 +159,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public int indexOf(Object object) {
+        //searching object in whole array list and if we find it return index, otherwise -1
         for (int i = 0; i < size; i++) {
             if (array[i].equals(object)) {
                 return i;
@@ -149,6 +170,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public int lastIndexOf(Object object) {
+        //searching object in whole array list starting from the end and if we find it return index, otherwise -1
         for (int i = size - 1; i >= 0; i--) {
             if (array[i].equals(object)) {
                 return i;
@@ -159,6 +181,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public boolean exists(Object object) {
+        //searching object in whole array list and if we find it return true, otherwise false
         for (int i = 0; i < size; i++) {
             if (array[i].equals(object)) {
                 return true;
@@ -169,6 +192,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public Object[] toArray() {
+        //create an array to print it out
         Object[] result = new Object[size];
         for (int i = 0; i < size; i++) {
             result[i] = array[i];
@@ -178,6 +202,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void clear() {
+        //make all null and set size as 0
         for (int i = 0; i < size; i++) {
             array[i] = null;
         }
@@ -186,6 +211,7 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public int size() {
+        //return size of array list
         return size;
     }
 
@@ -195,6 +221,7 @@ public class MyArrayList<T> implements MyList<T> {
     }
 
     private class MyIterator implements Iterator<T> {
+        //used to iterate through elements in order
         int cursor = 0;
 
         @Override
